@@ -1,0 +1,30 @@
+version: "3.3"
+services:
+  mysql:
+    image: mysql:8.0.1
+    container_name: mysql.
+    environment: 
+      MYSQL_ROOT_PASSWORD: "123"
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-db:/var/lib/mysql  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin.
+    ports:
+      - 8080:80
+    links: 
+      - mysql:db
+  php7.3:
+    image: quay.io/vesica/php73:latest
+    container_name: php73.
+    volumes:
+      - ./var/www/html:/var/www/html
+    ports:
+      - 80:8080 
+volumes:
+  mysql-db:    
+      
+     
+

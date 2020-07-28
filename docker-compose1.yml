@@ -1,0 +1,29 @@
+version: "3.3"
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb    
+    environment: 
+      MYSQL_ROOT_PASSWORD: "123"
+    ports:
+      - '3306:3306'
+    volumes:
+      - mariadb:/var/lib/mysql  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    ports:
+      - 8080:80
+    links: 
+      - mariadb:db
+  php7.3:
+    image: quay.io/vesica/php73:latest
+    container_name: php73
+    volumes:
+      - ./var/www/html:/var/www/html
+    ports:
+      - 80:80
+volumes:
+  mariadb:  
+     
+
